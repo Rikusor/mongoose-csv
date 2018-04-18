@@ -87,7 +87,7 @@ function find_props(schema) {
         .pluck('name').value();
 
     // _id at the end
-    props.shift('_id');
+    props.push('_id');
 
     return props;
 }
