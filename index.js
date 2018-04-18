@@ -95,14 +95,14 @@ function find_props(schema) {
 
 // generate the line in the CSV file
 function array_to_row(arr) {
-    return arr.map(prop_to_csv).join(',') + '\n';
+    return arr.map(prop_to_csv).join(';') + '\n';
 }
 
 // return empty string if not truthy, escape quotes
 function prop_to_csv(prop) {
 
     var val = String(prop);
-    if (val === 'undefined') val = '';
+    if (typeof val === 'undefined' || val === 'undefined' || val.length < 1) return '';
 
     return '"' + val.toString().replace(/"/g, '""') + '"';
 }
