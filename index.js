@@ -86,8 +86,8 @@ function find_props(schema) {
         // materialize , end chain
         .pluck('name').value();
 
-    // _id at the beginning
-    props.unshift('_id');
+    // _id at the end
+    props.shift('_id');
 
     return props;
 }
@@ -104,5 +104,5 @@ function prop_to_csv(prop) {
     var val = String(prop);
     if (typeof val === 'undefined' || val === 'undefined' || val.length < 1) return '';
 
-    return '"' + val.toString().replace(/"/g, '""') + '"';
+    return val;
 }
