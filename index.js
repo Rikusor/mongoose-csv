@@ -22,6 +22,15 @@ module.exports = function(schema, options) {
     var props = find_props(schema);
 
     schema.statics.csv_header = function() {
+        if (options && options.replaceHeaderNames) {
+            var headersToBeReplace = Object.keys(options.replaceHeaderNames);
+
+            for (var i = props.length - 1; i >= 0; i--) {
+                if (headersToBeReplace.indexOf(props[i]) > -1) {
+                    props[i] = options.replaceHeaderNames[props[i]];
+                }
+            }
+        }
         return array_to_row(props);
     };
 
