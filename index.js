@@ -20,18 +20,19 @@ module.exports = function(schema, options) {
 
     // discover properties for use with headers / serializing
     var props = find_props(schema);
+    var headers = find_props(schema);
 
     schema.statics.csv_header = function() {
         if (options && options.replaceHeaderNames) {
             var headersToBeReplace = Object.keys(options.replaceHeaderNames);
 
-            for (var i = props.length - 1; i >= 0; i--) {
-                if (headersToBeReplace.indexOf(props[i]) > -1) {
-                    props[i] = options.replaceHeaderNames[props[i]];
+            for (var i = headers.length - 1; i >= 0; i--) {
+                if (headersToBeReplace.indexOf(headers[i]) > -1) {
+                    headers[i] = options.replaceHeaderNames[headers[i]];
                 }
             }
         }
-        return array_to_row(props);
+        return array_to_row(headers);
     };
 
     schema.methods.toCSV = function() {
