@@ -23,8 +23,11 @@ module.exports = function(schema, options) {
   var headers = find_props(schema);
 
   schema.statics.csv_header = function(includeOnly, additonalHeaderReplacements) {
+
+    let headersTemp = [...headers];
+
     if (typeof includeOnly !== 'undefined' && includeOnly.length > 0) {
-      headers = headers.filter(function(header) {
+      headersTemp = headersTemp.filter(function(header) {
         return includeOnly.indexOf(header) > -1;
       });
     }
@@ -32,9 +35,9 @@ module.exports = function(schema, options) {
     if (typeof options !== 'undefined' && options.replaceHeaderNames) {
       var headersToBeReplace = Object.keys(options.replaceHeaderNames);
 
-      for (var i = headers.length - 1; i >= 0; i--) {
-        if (headersToBeReplace.indexOf(headers[i]) > -1) {
-          headers[i] = options.replaceHeaderNames[headers[i]];
+      for (var i = headersTemp.length - 1; i >= 0; i--) {
+        if (headersToBeReplace.indexOf(headersTemp[i]) > -1) {
+          headersTemp[i] = options.replaceHeaderNames[headersTemp[i]];
         }
       }
     }
@@ -42,13 +45,14 @@ module.exports = function(schema, options) {
     if (typeof additonalHeaderReplacements !== 'undefined' && Object.keys(additonalHeaderReplacements).length > 0) {
       var headersToBeReplace = Object.keys(additonalHeaderReplacements);
 
-      for (var i = headers.length - 1; i >= 0; i--) {
-        if (headersToBeReplace.indexOf(headers[i]) > -1) {
-          headers[i] = additonalHeaderReplacements[headers[i]];
+      for (var i = headersTemp.length - 1; i >= 0; i--) {
+        if (headersToBeReplace.indexOf(headersTemp[i]) > -1) {
+          headersTemp[i] = additonalHeaderReplacements[headersTemp[i]];
         }
       }
     }
-    return array_to_row(headers);
+
+    return array_to_row(headersTemp);
   };
 
   schema.methods.toCSV = function(includeOnly) {
