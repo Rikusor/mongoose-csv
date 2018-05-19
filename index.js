@@ -83,7 +83,9 @@ module.exports = function(schema, options) {
     // write data
     return cursor
       .pipe(mapstream(function(data, cb) {
-        cb(null, data.toCSV(includeOnly));
+        setTimeout( function() {
+          cb(null, data.toCSV(includeOnly));
+        }, 0);
       }))
       .pipe(stream);
   };
