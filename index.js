@@ -59,11 +59,66 @@ module.exports = function(schema, options) {
     var doc = this;
     var json = doc.toJSON({ deleted : true, virtuals : true });
 
+    function toTitleCase(str) {
+      return str.replace(/[^-\s]+/g, function(word) {
+        return word.replace(/^./, function(first) {
+          return first.toUpperCase();
+        });
+      });
+    }
+
+    if (json.customer && json.customer.personalId) {
+      json.customer.personalId = json.customer.personalId.toUpperCase();
+    }
+    if (json.customerAddress.cityName && json.customerAddress.cityName) {
+      json.customerAddress.cityName = json.customerAddress.cityName.toUpperCase();
+    }
+    if (json.meteringpointAddress.cityName && json.meteringpointAddress.cityName) {
+      json.meteringpointAddress.cityName = json.meteringpointAddress.cityName.toUpperCase();
+    }
+    if (json.additionalCustomerAddress.cityName && json.additionalCustomerAddress.cityName) {
+      json.additionalCustomerAddress.cityName = json.additionalCustomerAddress.cityName.toUpperCase();
+    }
+
+    if (json.customerAddress.streetName && json.customerAddress.streetName) {
+      json.customerAddress.streetName = toTitleCase(json.customerAddress.streetName);
+    }
+    if (json.additionalCustomerAddress.streetName && json.additionalCustomerAddress.streetName) {
+      json.additionalCustomerAddress.streetName = toTitleCase(json.additionalCustomerAddress.streetName);
+    }
+    if (json.meteringpointAddress.streetName && json.meteringpointAddress.streetName) {
+      json.meteringpointAddress.streetName = toTitleCase(json.meteringpointAddress.streetName);
+    }
+
+    if (json.customer && json.customer.lastname) {
+      json.customer.lastname = toTitleCase(json.customer.lastname);
+    }
+
+    if (json.customer && json.customer.firstname) {
+      json.customer.firstname = toTitleCase(json.customer.firstname);
+    }
+
+    if (json.customer && json.customer.mobileNumber) {
+      const start = json.customer.mobileNumber.substring(0, 1);
+      json.customer.mobileNumber = json.customer.mobileNumber.replace(/ /g, '')
+
+      if (start === '0') {
+        json.customer.mobileNumber = json.customer.mobileNumber.replace('0', '+358');
+      }
+
+      const newStart = json.customer.mobileNumber.substring(0, 1);
+
+      if (newStart !== '+' && json.customer.mobileNumber.length > 1) {
+        json.customer.mobileNumber = '+' + json.customer.mobileNumber;
+      }
+    }
+
     if (typeof includeOnly !== 'undefined' && includeOnly.length > 0) {
       props = props.filter(function(prop) {
         return includeOnly.indexOf(prop) > -1;
       });
     }
+
     // map the props to values in this doc
     return array_to_row(props.map(function(prop) {
       return _.get(json, prop);
