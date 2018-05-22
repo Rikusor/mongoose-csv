@@ -70,23 +70,23 @@ module.exports = function(schema, options) {
     if (json.customer && json.customer.personalId) {
       json.customer.personalId = json.customer.personalId.toUpperCase();
     }
-    if (json.customerAddress.cityName && json.customerAddress.cityName) {
+    if (json.customerAddress && json.customerAddress.cityName) {
       json.customerAddress.cityName = json.customerAddress.cityName.toUpperCase();
     }
-    if (json.meteringpointAddress.cityName && json.meteringpointAddress.cityName) {
+    if (json.meteringpointAddress && json.meteringpointAddress.cityName) {
       json.meteringpointAddress.cityName = json.meteringpointAddress.cityName.toUpperCase();
     }
-    if (json.additionalCustomerAddress.cityName && json.additionalCustomerAddress.cityName) {
+    if (json.additionalCustomerAddress && json.additionalCustomerAddress.cityName) {
       json.additionalCustomerAddress.cityName = json.additionalCustomerAddress.cityName.toUpperCase();
     }
 
-    if (json.customerAddress.streetName && json.customerAddress.streetName) {
+    if (json.customerAddress && json.customerAddress.streetName) {
       json.customerAddress.streetName = toTitleCase(json.customerAddress.streetName);
     }
-    if (json.additionalCustomerAddress.streetName && json.additionalCustomerAddress.streetName) {
+    if (json.additionalCustomerAddress && json.additionalCustomerAddress.streetName) {
       json.additionalCustomerAddress.streetName = toTitleCase(json.additionalCustomerAddress.streetName);
     }
-    if (json.meteringpointAddress.streetName && json.meteringpointAddress.streetName) {
+    if (json.meteringpointAddress && json.meteringpointAddress.streetName) {
       json.meteringpointAddress.streetName = toTitleCase(json.meteringpointAddress.streetName);
     }
 
