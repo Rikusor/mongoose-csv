@@ -113,6 +113,10 @@ module.exports = function(schema, options) {
       }
     }
 
+    if (json.contractImportProperty3 && json.contractImportProperty3.propertyNo && json.contractImportProperty3.propertyNo.toString() === '37') {
+      json.contractImportProperty3.customPropertyNy = '1';
+    }
+
     if (typeof includeOnly !== 'undefined' && includeOnly.length > 0) {
       props = props.filter(function(prop) {
         return includeOnly.indexOf(prop) > -1;
