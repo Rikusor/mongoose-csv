@@ -67,6 +67,18 @@ module.exports = function(schema, options) {
       });
     }
 
+    function trimStrings(key, value) {
+      if (typeof value === 'string') {
+        return value.trim();
+      }
+
+      return value;
+    }
+
+    json = JSON.stringify(json, trimStrings, null);
+
+    json = JSON.parse(json);
+
     if (json.customer && json.customer.personalId) {
       json.customer.personalId = json.customer.personalId.toUpperCase();
     }
