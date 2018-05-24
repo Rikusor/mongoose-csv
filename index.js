@@ -117,6 +117,27 @@ module.exports = function(schema, options) {
       json.contractImportProperty3.customPropertyNy = '1';
     }
 
+
+    if (
+      (json.additionalCustomerAddress && json.additionalCustomerAddress.streetName && json.additionalCustomerAddress.streetName.length > 0) ||
+      (json.additionalCustomerAddress && json.additionalCustomerAddress.postOfficeBox && json.additionalCustomerAddress.postOfficeBox.length > 0)
+    ) {
+      json.customerAddress.addressType = '';
+      json.customerAddress.streetName = '';
+      json.customerAddress.houseNumber = '';
+      json.customerAddress.houseLetter = '';
+      json.customerAddress.residence = '';
+      json.customerAddress.zipCode = '';
+      json.customerAddress.cityName = '';
+      json.customerAddress.careOf = '';
+      json.customerAddress.countryCode = '';
+      json.customerAddress.postOfficeBox = '';
+      json.customerAddress.addressExtra = '';
+      json.customerAddress.fromDate = '';
+      json.customerAddress.toDate = '';
+    }
+
+
     if (typeof includeOnly !== 'undefined' && includeOnly.length > 0) {
       props = props.filter(function(prop) {
         return includeOnly.indexOf(prop) > -1;
