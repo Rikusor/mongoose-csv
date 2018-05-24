@@ -127,8 +127,11 @@ module.exports = function(schema, options) {
 
     if (json.contractImportProperty3 && json.contractImportProperty3.propertyNo && json.contractImportProperty3.propertyNo.toString() === '37') {
       json.contractImportProperty3.customPropertyNy = '1';
-    }
 
+      if (json.contractImportProperty3.propertyValueNo && json.contractImportProperty3.propertyValueNo.toString() === '0') {
+        json.contractImportProperty3.propertyValueNo = '7';
+      }
+    }
 
     if (
       (json.additionalCustomerAddress && json.additionalCustomerAddress.streetName && json.additionalCustomerAddress.streetName.length > 0) ||
