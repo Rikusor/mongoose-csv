@@ -197,6 +197,9 @@ module.exports = function(schema, options) {
   if (mongoose.Query.prototype.csv) return;
   mongoose.Query.prototype.csv = function(stream, includeOnly, additonalHeaderReplacements) {
 
+    props = find_props(schema);
+    headers = find_props(schema);
+
     // write header
     stream.write(this.model.csv_header(includeOnly, additonalHeaderReplacements));
 
