@@ -23,6 +23,8 @@ module.exports = function(schema, options) {
   var headers = find_props(schema);
 
   schema.statics.csv_header = function(includeOnly, additonalHeaderReplacements) {
+    props = find_props(schema);
+    headers = find_props(schema);
 
     let headersTemp = [...headers];
 
@@ -56,6 +58,9 @@ module.exports = function(schema, options) {
   };
 
   schema.methods.toCSV = function(includeOnly) {
+    props = find_props(schema);
+    headers = find_props(schema);
+
     var doc = this;
     var json = doc.toJSON({ deleted : true, virtuals : true });
 
@@ -151,7 +156,7 @@ module.exports = function(schema, options) {
       json.customerAddress.fromDate = '';
       json.customerAddress.toDate = '';
     }
-
+/*
     if (json.meteringpoint && json.meteringpoint.network && json.meteringpoint.network === 'FSJ000') {
       var startDateFSJ = '';
 
@@ -164,7 +169,8 @@ module.exports = function(schema, options) {
         tariffNo: '47',
         toDate: '2073-06-01'
       }
-    }
+    }*/
+/*
 
     if (json.meteringpoint && json.meteringpoint.network && json.meteringpoint.network === 'FED000') {
       var startDateFED = '';
@@ -180,6 +186,7 @@ module.exports = function(schema, options) {
       }
     }
 
+*/
 
     if (typeof includeOnly !== 'undefined' && includeOnly.length > 0) {
       props = props.filter(function(prop) {
