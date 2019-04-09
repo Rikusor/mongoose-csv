@@ -235,7 +235,7 @@ function find_props(schema, includeOnly) {
 
     // remove paths that are annotated with csv: false
     .filter(function(node) {
-      if (node.name === '_v') return false;
+      if (node.name === '__v') return false;
       return typeof node.value.csv === 'undefined' || node.value.csv;
     })
 
