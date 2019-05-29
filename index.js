@@ -152,35 +152,6 @@ module.exports = function(schema, options) {
       json.customerAddress.toDate = '';
     }
 
-    if (json.meteringpoint && json.meteringpoint.network && json.meteringpoint.network === 'FSJ000') {
-      var startDateFSJ = '';
-
-      if (json.contract && json.contract.startDate) {
-        startDateFSJ = json.contract.startDate;
-      }
-
-      json.contractTariff = {
-        fromDate: startDateFSJ,
-        tariffNo: '47',
-        toDate: '2073-06-01'
-      }
-    }
-
-    if (json.meteringpoint && json.meteringpoint.network && json.meteringpoint.network === 'FED000') {
-      var startDateFED = '';
-
-      if (json.contract && json.contract.startDate) {
-        startDateFED = json.contract.startDate;
-      }
-
-      json.contractTariff = {
-        fromDate: startDateFED,
-        tariffNo: '48',
-        toDate: '2073-06-01'
-      }
-    }
-
-
     if (typeof includeOnly !== 'undefined' && includeOnly.length > 0) {
       props = props.filter(function(prop) {
         return includeOnly.indexOf(prop) > -1;
